@@ -20,5 +20,5 @@ class AudioAnnotationsModel(Base):
     start_time = Column(TIME)
     stop_time = Column(TIME)
     created_at = Column(TIMESTAMP, default=func.now())
-    md5 = Column(UUID(as_uuid=True), ForeignKey("audio.md5"))
+    md5 = Column(VARCHAR, ForeignKey("audio.md5"))
     version = Column(Integer)

@@ -1,5 +1,6 @@
 import os
 import configparser
+from src.utils.custom_error_handlers import ConfigError
 
 
 class ConfigReader:
@@ -27,15 +28,20 @@ class ConfigReader:
         self.DB_USER = str(cfg.get('database', 'user'))
         self.DB_PASSWORD = str(cfg.get('database', 'password'))
 
+    def __init_storage(self, cfg):
+        # Parameters for file storage
+        self.audio_folder = str(cfg.get('storage', 'audio_folder'))
+
 
 # This is the list of environments in config folder
 accepted_env_values = ['test', 'development', 'production']
 try:
-    env = os.environ['ENV']
+    env = os.environ.get('ENV')
 except KeyError:
-    raise Exception(f"Pass env variable ENV with values: {', '.join(accepted_env_values)}")
+    raise ConfigError(f"Pass env variable ENV with values: {', '.join(accepted_env_values)}")
 
 if env not in accepted_env_values:
-    raise Exception(f"Wrong ENV value. Got {env}, should be: {', '.join(accepted_env_values)}")
+    raise ConfigError(f"Wrong ENV value. Got {env}, should be: {', '.join(accepted_env_values)}")
 
-CFG = ConfigReader(f"../config/{env}.ini")
+# Initialize config
+CFG = ConfigReader(f"config/{env}.ini")

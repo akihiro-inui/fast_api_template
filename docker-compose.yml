@@ -1,0 +1,31 @@
+version: "3.9"
+
+services:
+  api:
+    container_name: "fast-api"
+    restart: always
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      ENV: 'development'
+    ports:
+      - 80:80
+    depends_on:
+      - database
+
+  database:
+    image: postgres
+    container_name: "postgresql-database"
+    restart: always
+    environment:
+      - POSTGRES_DB=data
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - $PWD/tests/test_files:/docker-entrypoint-initdb.d
+      - db_volume:/var/lib/postgresql
+    ports:
+      - 5432:5432
+volumes:
+  db_volume: {}

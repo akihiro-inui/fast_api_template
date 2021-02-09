@@ -16,16 +16,12 @@ SET xmloption = content;
 SET client_min_messages = warning;
 SET row_security = off;
 
-DROP DATABASE data;
 --
 -- Name: data; Type: DATABASE; Schema: -; Owner: postgres
 --
 
-CREATE DATABASE data WITH TEMPLATE = template0 ENCODING = 'UTF8' LOCALE = 'en_US.UTF-8';
-
-
 ALTER DATABASE data OWNER TO postgres;
-ALTER USER postgres PASSWORD 'postgres';
+
 \connect data
 
 SET statement_timeout = 0;

@@ -38,7 +38,7 @@ class AudioUpdate(BaseModel):
     md5: str
     file_name: Optional[str]
     audio_format_id: Optional[str]
-    duration: Optional[int]
+    duration: Optional[float]
     organization_id: Optional[str]
     custom_property: Optional[str]
 
